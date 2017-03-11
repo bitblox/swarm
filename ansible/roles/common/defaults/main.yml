@@ -1,0 +1,12 @@
+hosts: [
+  { host_ip: "10.100.198.200", host_name: "skynet"},
+  { host_ip: "10.100.198.201", host_name: "scm"},
+  { host_ip: "10.100.194.200", host_name: "logging"},
+  { host_ip: "10.100.194.201", host_name: "swarm-master"},
+  { host_ip: "10.100.194.202", host_name: "swarm-2"},
+  { host_ip: "10.100.194.203", host_name: "swarm-3"},
+]
+
+obsolete_services:
+  - puppet
+  - chef-client

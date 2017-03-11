@@ -1,0 +1,31 @@
+- name: Directories are created
+  file:
+    path: "{{ item }}"
+    mode: 0777
+    recurse: yes
+    state: directory
+  with_items: ["/data/gitlab/config", "/data/gitlab/logs", "/data/gitlab/data"]
+  tags: [gitlab]
+
+- name: Container is running
+  docker:
+    name: gitlab
+    image: "gitlab/gitlab-ce:latest"
+    ports: 80:80
+    env:
+      GITLAB_OMNIBUS_CONFIG:"external_url='http://gitlab.local/'; gitlab_rails['lfs_enabled']=true;"
+    volumes:
+      - /data/gitlab/config:/etc/gitlab
+      - /data/gitlab/logs:/var/log/gitlab
+      - /data/gitlab/data:/var/opt/gitlab
+      - /vagrant/.vagrant/machines:/machines
+  register: container_result
+  tags: [gitlab]
+
+- name: Configurations are present
+  copy:
+    src: "gitlab.rb"
+    dest: "/data/gitlab/config/gitlab.rb"
+    mode: "0777"
+  register: configs_result
+  tags: [gitlab]

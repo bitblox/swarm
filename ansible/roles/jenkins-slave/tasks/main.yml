@@ -1,0 +1,21 @@
+- name: Repository is present
+  apt_repository:
+    repo: ppa:openjdk-r/ppa
+  tags: [java]
+
+- name: Package is present
+  apt:
+    name: openjdk-8-jdk
+    state: present
+    update_cache: yes
+  tags: [java]
+
+- name: Directories are created
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    recurse: yes
+    state: directory
+  with_items:
+    - { path: '/data/jenkins_slaves', owner: "{{ agent_user }}" }
+  tags: [jenkins]

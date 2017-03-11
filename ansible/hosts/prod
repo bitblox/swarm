@@ -1,0 +1,15 @@
+[skynet]
+10.100.198.200
+
+[jenkins]
+10.100.198.200
+
+[scm]
+10.100.198.201
+
+[logging]
+10.100.194.200
+
+[swarm]
+10.100.194.201 consul_extra="-server -bootstrap -ui"
+10.100.194.20[2:3] consul_server_ip="10.100.194.201"
