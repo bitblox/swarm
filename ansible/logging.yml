@@ -1,4 +1,4 @@
-- hosts: logging
+- hosts: localhost
   remote_user: vagrant
   serial: 1
   roles:
